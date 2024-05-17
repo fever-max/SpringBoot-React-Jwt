@@ -43,9 +43,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // 토큰 검증
         String userEmail = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
-                .getClaim("userEmail")
+                .getClaim("sub")
                 .asString();
 
+        System.out.println("인증 요청한 유저 이메일: " + userEmail);
         System.out.println("토큰 검증 시작");
 
         if (userEmail != null) {

@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("=========jwt 생성 시작");
         // jwt 생성
         String jwtToken = JWT.create()
-                .withSubject(principalDetailis.getUsername())
+                .withSubject(principalDetailis.getUser().getUserEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", principalDetailis.getUser().getNo())
                 .withClaim("userName", principalDetailis.getUser().getUsername())

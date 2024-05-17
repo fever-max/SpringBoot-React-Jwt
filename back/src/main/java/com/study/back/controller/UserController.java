@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.http.HttpStatus;
 
+import com.study.back.config.auth.PrincipalDetails;
 import com.study.back.model.User;
 import com.study.back.repository.UserRepository;
 import com.study.back.service.UserService;
@@ -42,6 +43,26 @@ public class UserController {
         user.setRoles("ROLE_USER");
         userRepository.save(user);
         return ResponseEntity.ok("회원가입 완료");
+    }
+
+    @GetMapping("/user")
+    public String user(Authentication authentication) {
+        printPrincipalDetails(authentication);
+        return "인가된 user";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Authentication authentication) {
+        printPrincipalDetails(authentication);
+        return "인가된 admin";
+    }
+
+    private void printPrincipalDetails(Authentication authentication) {
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("principal.getNo : " + principal.getUser().getNo());
+        System.out.println("principal.getUserEmail : " + principal.getUser().getUserEmail());
+        System.out.println("principal.getPassword : " + principal.getUser().getPassword());
+        System.out.println("principal.getRoles : " + principal.getUser().getRoles());
     }
 
 }

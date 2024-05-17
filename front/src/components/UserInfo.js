@@ -19,9 +19,7 @@ function UserInfo() {
   return (
     <div>
       <h1>사용자 정보</h1>
-      <p>jwtToke: {jwtToken}</p>
-      {/* <p>이메일: {email}</p>
-      <p>권한: {authorities}</p> */}
+      <p>jwtToken: {jwtToken}</p>
       <button onClick={handleLogout}>로그아웃</button>
     </div>
   );
