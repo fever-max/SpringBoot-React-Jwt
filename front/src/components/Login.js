@@ -34,6 +34,7 @@ function Login() {
         const jwtToken = response.headers.authorization; // "Authorization" 헤더에서 JWT 토큰 추출
         console.log(response.headers);
         console.log('전달받은 토큰: ' + jwtToken);
+
         navigate('/userInfo', { state: { jwt: jwtToken } });
       }
     } catch (error) {

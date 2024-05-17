@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,6 +90,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET.getBytes()));
 
         System.out.println("만들어진 jwt 토큰: " + jwtToken);
+
+        // 쿠키에 저장
+        Cookie cookie = new Cookie("jwtToken", jwtToken);
+        cookie.setDomain("localhost");
+        cookie.setPath("/"); // 쿠키 경로 설정
+        cookie.setMaxAge(30 * 60); // 유효 시간 설정 (30분)
+        cookie.setHttpOnly(true); // http에서 수정 불가 (JavaScript를 통해 쿠키에 접근 불가)
+        response.addCookie(cookie); // 응답에 쿠키 추가
+
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
     }
 

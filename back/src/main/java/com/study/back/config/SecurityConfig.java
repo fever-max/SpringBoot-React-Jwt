@@ -52,6 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .logout() // 로그아웃 설정
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logoutOk")
+                .deleteCookies("jwtToken");
+
     }
 }

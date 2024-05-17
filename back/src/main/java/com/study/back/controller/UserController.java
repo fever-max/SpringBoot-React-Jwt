@@ -19,6 +19,11 @@ import com.study.back.service.UserService;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Collection;
@@ -45,16 +50,21 @@ public class UserController {
         return ResponseEntity.ok("회원가입 완료");
     }
 
+    @GetMapping("/logoutOk")
+    public ResponseEntity<String> logout() {
+        return ResponseEntity.ok("로그아웃 완료");
+    }
+
     @GetMapping("/user")
-    public String user(Authentication authentication) {
+    public ResponseEntity<String> user(Authentication authentication) {
         printPrincipalDetails(authentication);
-        return "인가된 user";
+        return ResponseEntity.ok("인가된 유저");
     }
 
     @GetMapping("/admin")
-    public String admin(Authentication authentication) {
+    public ResponseEntity<String> admin(Authentication authentication) {
         printPrincipalDetails(authentication);
-        return "인가된 admin";
+        return ResponseEntity.ok("인가된 어드민");
     }
 
     private void printPrincipalDetails(Authentication authentication) {

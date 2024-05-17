@@ -8,8 +8,8 @@ function UserInfo() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/logout');
-      alert('로그아웃 완료');
+      const response = await axios.get('http://localhost:8080/logout', { withCredentials: true });
+      alert(response.data);
       window.location.href = '/';
     } catch (error) {
       console.error('로그아웃 에러:', error);
