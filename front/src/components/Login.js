@@ -18,16 +18,9 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        'http://localhost:8080/login',
-        {
-          userEmail: user.userEmail,
-          password: user.password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post('http://localhost:8080/login', user, {
+        withCredentials: true,
+      });
 
       if (response) {
         alert('로그인 성공! ');
@@ -35,7 +28,7 @@ function Login() {
         console.log(response.headers);
         console.log('전달받은 토큰: ' + jwtToken);
 
-        navigate('/userInfo', { state: { jwt: jwtToken } });
+        navigate('/home', { state: { jwt: jwtToken } });
       }
     } catch (error) {
       console.log('로그인 에러: ', error);

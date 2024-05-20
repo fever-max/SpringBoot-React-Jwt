@@ -56,9 +56,12 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<String> user(Authentication authentication) {
+    public ResponseEntity<User> user(Authentication authentication) {
         printPrincipalDetails(authentication);
-        return ResponseEntity.ok("인가된 유저");
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        String userEmail = principal.getUser().getUserEmail();
+        User user = userRepository.findByUserEmail(userEmail);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/admin")
